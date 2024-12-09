@@ -1,5 +1,4 @@
 // Single linked list with all the operations
-
 #include <stdio.h>
 #include <stdlib.h>
 
