@@ -84,4 +84,149 @@ node *create_ll(node *start) {
   printf("Enter the data:\n");
   scanf("%d",&num);
   while(num != -1) {
-    
+    new_node = (node *)malloc(sizeof(node));
+    new_node->data = num;
+    new_node->next = NULL;
+    if(start == NULL)
+        start = new_node;
+    else {
+        ptr = start;
+        while(ptr->next != NULL)
+            ptr = ptr->next;
+        ptr->next = new_node;
+    }
+    printf("Enter data\n");
+    scanf("%d",&num);
+  }
+  return start;
+}
+
+//display list
+node *display(node *start) {
+    node *ptr;
+    ptr = start;
+    if(ptr==NULL)
+        printf("\nLIST is emptly.");
+    else {
+        while(ptr!=NULL) {
+            printf("%d",ptr->data);
+            ptr = ptr->next;
+        }
+    }
+    return start;
+}
+
+//insert at the beginning
+node *insert_beg(node *start) {
+    node *new_node;
+    new_node = (node *)malloc(sizeof(node));
+    printf("Enter value\n");
+    scanf("%d",&(new_node->data));
+    new_node->next = start;
+    start = new_node;
+    return start;
+}
+
+//insert at the end
+node *insert_end(node *start) {
+    node *new_node,*ptr;
+    new_node = (node *)malloc(sizeof(node));
+    printf("Enter value\n");
+    scanf("%d",&(new_node->data));
+    new_node->next = NULL;
+    if(start == NULL)
+        start = new_node;
+    else{
+        ptr = start;
+        while(ptr->next!=NULL)
+            ptr = ptr->next;
+        ptr->next = new_node;
+    }
+    return start;
+}
+
+//insert before a node
+node *insert_before(node *start) {
+    node *new_node, *preptr = NULL, *ptr;
+    new_node = (node *)malloc(sizeof(node));
+
+    //checking memory allocation
+    if(new_node==NULL) {
+        printf("Memory Allocation Failed.\n");
+        return start;
+    }
+    //taking data input
+    printf("Enter your data:\n");
+    scanf("%d",&(new_node->data));
+
+    //input the target value before node to be added
+    printf("Enter value before which to add node:\n");
+    int before;
+    scanf("%d",&before);
+
+    //traversing to find the value
+    ptr = start;
+    while(ptr!=NULL && ptr->data != before) {
+        preptr = ptr;
+        ptr = ptr->next;
+    }
+
+    if(ptr==NULL) {
+        printf("Value not found.");
+        free(new_node);
+        return start;
+    }
+    new_node->next = ptr;
+    if(preptr==NULL)
+        start = new_node;
+    else{
+        preptr=>next = new_node;
+    }
+    return start;
+}
+
+//insert after a node
+node *insert_after(node *start) {
+    node *new_node,*preptr = NULL, *ptr;
+    new_node = (node *)malloc(sizeof(node));
+    if(new_node==NULL) {
+        printf("Memory allocation failed");
+        return start;
+    }
+    else {
+        printf("Enter your data:\n");
+        scanf("%d",&(new_node->data));
+    }
+
+    //input target value
+    printf("Enter value after which to add node:\n");
+    int after;
+    scanf("%d",&after);
+
+    ptr = start;
+    if(ptr==NULL) {
+        printf("LIST is empty.");
+        return start;
+    } else {
+        while(ptr!=NULL && ptr->data != after) {
+            preptr = ptr;
+            ptr = ptr->next;
+        }
+    }
+    if(ptr==NULL) {
+        printf("After value not found:");
+        return start;
+    }else if(ptr->data == after) {
+        if(ptr->next != NULL) {
+            preptr = ptr;
+            ptr = ptr->next;
+            preptr->next = new_node;
+            new_node->next = ptr;
+            return start;
+        } else if(ptr->next == NULL) {
+            ptr->next = new_node;
+            new_node->next = NULL;
+            return start;
+        }
+    }
+}
