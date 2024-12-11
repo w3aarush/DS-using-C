@@ -427,3 +427,52 @@ node *insert_after(node *start) {
         }
     }
 }
+
+//ChatGPT version of insert after
+
+node *insert_after(node *start) {
+    node *new_node, *ptr;
+    int after;
+
+    // Allocate memory for the new node
+    new_node = (node *)malloc(sizeof(node));
+    if (new_node == NULL) {
+        printf("Memory allocation failed\n");
+        return start;
+    }
+
+    // Input data for the new node
+    printf("Enter your data:\n");
+    scanf("%d", &(new_node->data));
+
+    // Input the target value
+    printf("Enter value after which to add node:\n");
+    scanf("%d", &after);
+
+    ptr = start;
+
+    // Handle empty list
+    if (ptr == NULL) {
+        printf("LIST is empty.\n");
+        free(new_node);  // Free allocated memory if insertion is not possible
+        return start;
+    }
+
+    // Traverse the list to find the target value
+    while (ptr != NULL && ptr->data != after) {
+        ptr = ptr->next;
+    }
+
+    // Handle case where target value is not found
+    if (ptr == NULL) {
+        printf("Value %d not found in the list.\n", after);
+        free(new_node);  // Free allocated memory
+        return start;
+    }
+
+    // Insert the new node after the target node
+    new_node->next = ptr->next;
+    ptr->next = new_node;
+
+    return start; // Return the updated list
+}
