@@ -1,2 +1,3 @@
 # DS-using-C
-Data Structures Using C 
+#MCA 2024 Patna Science College (PU)
+Data Structures Using C
